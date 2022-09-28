@@ -1,0 +1,16 @@
+.br {
+    border-radius: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.titulo{
+    color: chartreuse;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.corpo{
+color:darkmagenta;
+text-align: center;
+}
