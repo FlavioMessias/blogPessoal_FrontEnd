@@ -1,11 +1,17 @@
 import React from 'react';
-
+import ButtonAppBar from './components/static/navbar/Navbart';
+import Footer from './components/static/footer/Footer';
 import './App.css';
-import Home from './complements/home/Home';
+import Home from './components/home/Home';
 
 function App() {
   return (
-   <Home/>
+    <>
+    <ButtonAppBar/>
+    <Home/>
+    <Footer/>
+
+   </>
   );
 }
 
