@@ -6,6 +6,7 @@ import Login from './components/login/Login';
 import Home from './components/home/Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/static/navbar/Navbar';
+import Cadastrar from './components/cadastro/Cadastrar';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/home" element={<Home />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/cadastrar" element={<Cadastrar />} />        
       </Routes>
       <Footer />
     </Router>

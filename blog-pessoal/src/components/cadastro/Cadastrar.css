@@ -1,0 +1,14 @@
+.btnCancelar {
+    margin-right: 20px !important;
+}
+
+.botao {
+    display: flex;
+    align-items: center;
+    
+}
+
+.text-decorator-none{
+    text-decoration: none !important;
+    margin-right: 15px;
+}
