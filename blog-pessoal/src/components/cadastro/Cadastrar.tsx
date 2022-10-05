@@ -52,13 +52,17 @@ function Cadastrar() {
 
   async function conectar(event: ChangeEvent<HTMLFormElement>){
     event.preventDefault();
-    if(confirmarSenha == userCadastrar.senha){
-      cadastroUsuario('usuarios/cadastrar', userCadastrar, setUserResult)
-      
-      alert('Usuário Cadastrado com Sucesso!')
-    }
-    else{
-      alert('Erro!!! Favor verificar as informações de cadastro.')
+    if(confirmarSenha === userCadastrar.senha && userCadastrar.senha.length >= 8){
+      try {
+        await cadastroUsuario('usuarios/cadastrar', userCadastrar, setUserResult);
+        alert('Usuário criado com sucesso!!! Efetue o Login.');
+      } catch (error) {
+        alert('Falha ao cadastrar o usuário. Por favor, confira os campos');
+      }
+    } else {
+      alert(
+        'Senhas divergentes, ou menores que 8 caracteres. Por favor, verifique os campos.'
+      );
     }
   }
 

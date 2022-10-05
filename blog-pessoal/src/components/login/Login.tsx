@@ -84,15 +84,24 @@ function Login() {
             <form onSubmit={conectar}>
                 <Typography variant='h2'>Entrar</Typography>
 
-                <TextField   onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}  value={userLogin.usuario} id='usuario' label='Usuário' variant='outlined' fullWidth margin='normal'/>
+                <TextField
+                onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
+                value={userLogin.usuario}
+                id="usuario"
+                name="usuario"
+                label="Usuário"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+              />
                 <FormControl fullWidth margin='normal' variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Senha</InputLabel>
           <OutlinedInput
             id="senha"
             name='senha'
             type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
+            value={userLogin.senha}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -109,7 +118,7 @@ function Login() {
           />
         </FormControl>
                 <Box marginTop={2}>
-                    <Link to='/home'><Button type='submit' variant='contained' color='primary'>Entrar</Button></Link>
+                  <Button type='submit' variant='contained' color='primary'>Entrar</Button>
                 </Box>
             </form>
                 <Box display='flex' justifyContent='center' marginTop={1}>
