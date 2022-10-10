@@ -10,7 +10,8 @@
     let navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const [temas, setTemas] = useState<Tema[]>([]);
-    const [token] = useLocalStorage('token');
+    const [token, setToken] = useLocalStorage('token');
+
     const [tema, setTema] = useState<Tema>({
       id: 0,
       descricao: '',
@@ -37,7 +38,14 @@
         ...postagens,
         tema: tema,
       });
-    }, [temas]);
+    }, [tema]);
+
+    useEffect(() => {
+      getTemas()
+      if (id !== undefined) {
+          findByIdPostagens(id)
+      }
+  }, [id])
   
     async function findByIdPostagens(id: string) {
       await buscaId(`postagens/${id}`, setPostagens, {
@@ -74,95 +82,59 @@
       event.preventDefault();
   
       if (id !== undefined) {
-        try {
-          await put(`/postagens`, postagens, setPostagens, {
+        put(`/postagens`, postagens, setPostagens, {
             headers: {
-              Authorization: token,
-            },
-          });
-          alert('Postagem atualizada com sucesso!!!');
-        } catch (error) {
-          alert('Erro ao atualizar, verifique os campos');
-        }
-      } else {
-        try {
-          await post(`/postagem`, postagens, setPostagens, {
+                'Authorization': token
+            }
+        })
+        alert('Postagem atualizada com sucesso');
+    } else {
+        post(`/postagens`, postagens, setPostagens, {
             headers: {
-              Authorization: token,
-            },
-          });
-          alert('Postagem cadastrada com sucesso');
-        } catch (error) {
-          alert('Erro ao cadastrar, verifique os campos');
-        }
-      }
-      navigate('/postagens');
+                'Authorization': token
+            }
+        })
+        alert('Postagem cadastrada com sucesso');
     }
+    back()
+
+}
+
+function back() {
+  navigate('/postagens')
+}
   
     return (
-      <>
-        <Container>
-          <form onSubmit={onSubmit}>
-            <Typography
-              variant="h3"
-              color="textSecondary"
-              component="h1"
-              align="center"
-            >
-              Formulário de cadastro postagem
-            </Typography>
-  
-            <TextField
-              value={postagens.titulo}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => updatedPostagens(event)}
-              id="titulo"
-              label="titulo"
-              variant="outlined"
-              name="titulo"
-              margin="normal"
-              fullWidth
-            />
-  
-            <TextField
-              value={postagens.texto}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => updatedPostagens(event)}
-              id="texto"
-              label="texto"
-              name="texto"
-              variant="outlined"
-              margin="normal"
-              fullWidth
-            />
-  
-            <FormControl variant='outlined'>
+      <Container maxWidth="sm" className="topo">
+      <form onSubmit={onSubmit}>
+          <Typography variant="h3" color="textSecondary" component="h1" align="center" >Formulário de cadastro postagem</Typography>
+          <TextField value={postagens.titulo} onChange={(event: ChangeEvent<HTMLInputElement>) => updatedPostagens(event)} id="titulo" label="titulo" variant="outlined" name="titulo" margin="normal" fullWidth />
+          <TextField value={postagens.texto} onChange={(event: ChangeEvent<HTMLInputElement>) => updatedPostagens(event)} id="texto" label="texto" name="texto" variant="outlined" margin="normal" fullWidth />
+
+          <FormControl >
               <InputLabel id="demo-simple-select-helper-label">Tema </InputLabel>
-  
               <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                fullWidth
-                
-                onChange={(event) =>
-                  buscaId(`/temas/${event.target.value}`, setTema, {
-                    headers: {
-                      Authorization: token,
-                    },
-                  })
-                }
-              >
-                {temas.map((item) => (
-                  <MenuItem value={item.id} style={{display: 'block'}}>{item.descricao}</MenuItem>
-                ))}
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  onChange={(e) => buscaId(`/temas/${e.target.value}`, setTema, {
+                      headers: {
+                          'Authorization': token
+                      }
+                  })}>
+                  {
+                      temas.map(tema => (
+                          <MenuItem value={tema.id}>{tema.descricao}</MenuItem>
+                      ))
+                  }
               </Select>
               <FormHelperText>Escolha um tema para a postagem</FormHelperText>
               <Button type="submit" variant="contained" color="primary">
-                Finalizar
+                  Finalizar
               </Button>
-            </FormControl>
-          </form>
-        </Container>
-      </>
-    );
-  }
+          </FormControl>
+      </form>
+  </Container>
+)
+}
   
   export default CadastroPostagem;

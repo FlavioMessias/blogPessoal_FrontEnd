@@ -15,6 +15,7 @@ function DeletarTema() {
   let navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [token] = useLocalStorage('token');
+  const [temas, setTemas] = useState<Tema>()
 
   useEffect(() => {
       if (token === '') {
@@ -23,68 +24,58 @@ function DeletarTema() {
       }
   }, [token])
 
-  const [temas, setTemas] = useState<Tema>()
-
-  async function temaById(id: string) {
-    buscaId(`/temas/${id}`, setTemas, {
-        headers: {
-          'Authorization': token
-        }
-      })
+  useEffect(() => {
+    if(id !== undefined) {
+      findById(id)
     }
+  },[id])
 
-
-  useEffect(() =>{
-    if(id !== undefined){
-        temaById(id)
-    }
-}, [id])
-
-    function sim() {
-        navigate('/temas')
-        deleteId(`/temas/${id}`, {
-          headers: {
-            'Authorization': token
-          }
-        });
-        alert('Tema deletado com sucesso');
+  async function findById(id: string){
+    await buscaId(`/temas/${id}`, setTemas, {
+      headers: {
+        'Authorization': token
       }
+    })
+  }
+
+  async function sim() {
+    await deleteId(`/temas/${id}`, {
+      headers: {
+        'Authorization': token
+      }
+    })
+    alert('Tema apagado com sucesso');
+    navigate('/temas')
+  }
+
+  function nao(){
+    navigate('/temas')
+  }
+
+  return (
+      <Box m={2}>
+        <Card variant='outlined'>
+          <CardContent>
+            <Box justifyContent='center'>
+              <Typography color='textSecondary' gutterBottom>Deseja deletar o tema: </Typography>
+              <Typography color='textSecondary'>{temas?.descricao} </Typography>
+            </Box>
+          </CardContent>
+
+          <CardActions>
+            <Box display='flex' justifyContent='start' ml={1} mb={2}>
+              <Box mx={2}>
+                <Button onClick={sim} variant='contained' size='large' color='primary' className='marginLeft'>Sim</Button>
+              </Box>
+              <Box mx={2}>
+                <Button onClick={nao} variant='contained' size='large' color='secondary'>Não</Button>
+              </Box>
+            </Box>
+          </CardActions>
+        </Card>
+      </Box>
     
-      function nao() {
-        navigate('/temas')
-      }
-        
-return (
-  <>
-    <Box m={2}>
-      <Card variant="outlined">
-        <CardContent>
-          <Box justifyContent="center">
-            <Typography color="textSecondary" gutterBottom>
-              Deseja deletar o Tema:
-            </Typography>
-            <Typography color="textSecondary">
-              {temas?.descricao}
-            </Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Box display="flex" justifyContent="start" ml={1.0} mb={2} >
-            <Box mx={2}>
-              <Button onClick={sim} variant="contained" className="marginLeft" size='large' color="primary">
-                Sim
-              </Button>
-            </Box>
-            <Box mx={2}>
-              <Button  onClick={nao} variant="contained" size='large' color="secondary">
-                Não
-              </Button>
-            </Box>
-          </Box>
-        </CardActions>
-      </Card>
-    </Box>
-  </>
-);
+  )
 }
-export default DeletarTema;
+
+export default DeletarTema

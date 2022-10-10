@@ -51,7 +51,7 @@ const [temas, setTemas] = useState<Tema>({
     
         if (id !== undefined) {
             console.log(temas)
-            put(`/tema`, temas, setTemas, {
+            put(`/temas`, temas, setTemas, {
                 headers: {
                     'Authorization': token
                 }
