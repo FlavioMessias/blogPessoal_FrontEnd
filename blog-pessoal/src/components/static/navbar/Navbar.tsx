@@ -9,6 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Open from './OpenMenu';
 import './Navbar.css'
 import { Box } from '@material-ui/core';
+import useLocalStorage from 'react-use-localstorage';
+import { useNavigate } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,12 +25,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
+
+
+
 function Navbar() {
+  let navigate = useNavigate();
+  const [token, setToken] = useLocalStorage('token');
+
+  function goLogout() {
+    setToken('')
+      alert('Logout efetuado com sucesso!!')
+      navigate('/login')
+
+  }
+  
   const classes = useStyles();
 
   return (
     <div className={classes.root} >
-      <AppBar position='static' >
+      <AppBar position='static' style={{backgroundColor:"#8e24aa"}} >
         <Toolbar>
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <Open />
@@ -36,7 +55,7 @@ function Navbar() {
           <Typography variant="h6" className={classes.title}>
             BlogPessoal
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={goLogout}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>

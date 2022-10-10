@@ -11,6 +11,6 @@
 }
 
 .corpo{
-color:darkmagenta;
-text-align: center;
+color:darkmagenta !important; 
+text-align: center !important;
 }
