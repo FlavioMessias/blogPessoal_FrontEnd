@@ -11,6 +11,9 @@ import './Navbar.css'
 import { Box } from '@material-ui/core';
 import useLocalStorage from 'react-use-localstorage';
 import { useNavigate } from 'react-router-dom';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToken } from '../../../store/tokens/actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,32 +36,47 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   let navigate = useNavigate();
-  const [token, setToken] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState['tokens']>(
+    (state)=> state.tokens
+  ) 
+
+  const dispatch=useDispatch();
+
+  const classes = useStyles();
 
   function goLogout() {
-    setToken('')
+    dispatch(addToken(''))
       alert('Logout efetuado com sucesso!!')
       navigate('/login')
 
   }
+
+  var navBarComponent
+
+  if (token !== ''){
+    navBarComponent =  <div className={classes.root} >
+    <AppBar position='static' style={{backgroundColor:"#8e24aa"}} >
+      <Toolbar>
+      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+        <Open />
+        
+        </IconButton>
+        <Typography variant="h6" className={classes.title}>
+          BlogPessoal
+        </Typography>
+        <Button color="inherit" onClick={goLogout}>Logout</Button>
+      </Toolbar>
+    </AppBar>
+  </div>
+  }
   
-  const classes = useStyles();
+ 
 
   return (
-    <div className={classes.root} >
-      <AppBar position='static' style={{backgroundColor:"#8e24aa"}} >
-        <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <Open />
-          
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            BlogPessoal
-          </Typography>
-          <Button color="inherit" onClick={goLogout}>Logout</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <>
+    {navBarComponent}
+    </>
+   
   );
 }
 export default Navbar;

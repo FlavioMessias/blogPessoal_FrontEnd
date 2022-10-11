@@ -2,16 +2,19 @@ import React, {useState, useEffect, ChangeEvent} from 'react'
 import { Container, Typography, TextField, Button } from "@material-ui/core"
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
-import useLocalStorage from 'react-use-localstorage';
 import Tema from '../../../model/Tema';
 import { buscaId, post, put } from '../../../services/Service';
 import './CadastroTema.css';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 
 
 function CadastroTema() {
 let navigate = useNavigate();
-const [token] = useLocalStorage('token');
+const token = useSelector<TokenState, TokenState['tokens']>(
+  (state)=> state.tokens
+) 
 const {id} = useParams<{id: string}>();
 const [temas, setTemas] = useState<Tema>({
     id: 0,
@@ -97,7 +100,7 @@ const [temas, setTemas] = useState<Tema>({
           />
 
           <Box display="flex" justifyContent="space-around">
-            <Link to="/temas">
+            <Link to="/temas" className='tdn'>
               <Button  variant="contained" color="secondary">
                 Cancelar
               </Button>

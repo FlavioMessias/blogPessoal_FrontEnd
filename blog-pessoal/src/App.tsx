@@ -14,10 +14,14 @@ import CadastroPost from './components/postagens/cadastroPost/CadastroPost';
 import DeletarPost from './components/postagens/deletarPost/DeletarPost';
 import CadastroTema from './components/temas/cadastroTema/CadastroTema';
 import DeletarTema from './components/temas/deletarTema/DeletarTema';
+import { Provider } from 'react-redux';
+import store from './store/Store';
 
 
 function App() {
   return (
+<Provider store={store}>
+
     <Router>
       <Navbar />
       <Routes>
@@ -49,6 +53,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </Provider>
   );
 }
 

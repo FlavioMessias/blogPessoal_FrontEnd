@@ -11,7 +11,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 import UsuarioLogin from "../../model/UsuarioLogin";
 import { login } from "../../services/Service";
-import useLocalStorage from "react-use-localstorage"
+import { useDispatch } from "react-redux";
+import { addToken } from "../../store/tokens/actions";
 
 
 interface State {
@@ -22,7 +23,8 @@ interface State {
 function Login() {
 
     let navigate = useNavigate()
-    const [token, setToken] = useLocalStorage('token')
+    const dispatch = useDispatch()
+    const [token, setToken] = useState('')
     const [userLogin, setUserLogin] = useState<UsuarioLogin>({
       id: 0,
       nome: '',
@@ -52,6 +54,7 @@ function Login() {
   
     useEffect(() => {
       if(token !== ''){
+        dispatch(addToken(token))
         navigate('/home')
       }
     }, [token])
@@ -135,7 +138,7 @@ function Login() {
     </Grid>
     <Grid xs={6} style={{
         backgroundImage: `url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5b19eaca-3d5b-429c-8725-0539d5300693/deh94rs-e0a264b6-bdd4-446e-97eb-a825c5744d3c.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzViMTllYWNhLTNkNWItNDI5Yy04NzI1LTA1MzlkNTMwMDY5M1wvZGVoOTRycy1lMGEyNjRiNi1iZGQ0LTQ0NmUtOTdlYi1hODI1YzU3NDRkM2MuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.w0c4m4tMQmRe8yI5z8vzxCPqQz8nM4LDYBmJm1NKaeE)`,
-        backgroundRepeat: 'no-repeat', width: '90vh', minHeight: '90vh', backgroundSize: 'cover', backgroundPosition: 'center'
+        backgroundRepeat: 'no-repeat', width: '90vh', minHeight: '100vh', backgroundSize: 'cover', backgroundPosition: 'center'
     }}>
     </Grid>
 </Grid>

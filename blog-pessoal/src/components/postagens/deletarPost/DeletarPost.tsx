@@ -3,15 +3,18 @@ import {Typography, Button, Card, CardActions, CardContent } from "@material-ui/
 import {Box} from '@mui/material'
 import './DeletarPost.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
 import Postagem from '../../../model/Postagem';
 import { buscaId, deleteId } from '../../../services/Service';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { useSelector } from 'react-redux';
 
 function DeletarPost() {
 
   let navigate = useNavigate();
   const { id } = useParams<{id: string}>();
-  const [token] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState['tokens']>(
+    (state)=> state.tokens
+  ) 
   const [post, setPosts] = useState<Postagem>()
 
   useEffect(() => {
