@@ -13,6 +13,7 @@ import UsuarioLogin from "../../model/UsuarioLogin";
 import { login } from "../../services/Service";
 import { useDispatch } from "react-redux";
 import { addToken } from "../../store/tokens/actions";
+import { toast } from "react-toastify";
 
 
 interface State {
@@ -46,9 +47,27 @@ function Login() {
       try{
         await login('usuarios/logar', userLogin, setToken)
   
-        alert('Usuário Logado com Sucesso!!!');
+        toast.success('Usuário logado com sucesso!!!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
       }catch(error){
-        alert('Erro ao Logar!!! Verifique os dados e tente novamente.')
+        toast.error('Erro ao Logar!!! Verifique os dados e tente novamente.', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
       }
     }
   

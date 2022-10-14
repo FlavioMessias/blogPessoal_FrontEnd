@@ -6,6 +6,7 @@
   import { busca, buscaId, post, put } from '../../../services/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
   
   function CadastroPostagem() {
     let navigate = useNavigate();
@@ -31,7 +32,16 @@ import { useSelector } from 'react-redux';
   
     useEffect(() => {
       if (token === '') {
-        alert('Erro de conexão, realize o Login novamentem');
+        toast.error('Erro de conexão, realize o Login novamente', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
         navigate('/login');
       }
     }, [token]);
@@ -90,14 +100,32 @@ import { useSelector } from 'react-redux';
                 'Authorization': token
             }
         })
-        alert('Postagem atualizada com sucesso');
+        toast.success('Postagem atualizada com Sucesso!!!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
     } else {
         post(`/postagens`, postagens, setPostagens, {
             headers: {
                 'Authorization': token
             }
         })
-        alert('Postagem cadastrada com sucesso');
+        toast.success('Postagem cadastrada com Sucesso!!!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
     }
     back()
 

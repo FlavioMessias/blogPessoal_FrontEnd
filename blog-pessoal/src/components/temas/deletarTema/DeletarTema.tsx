@@ -7,6 +7,7 @@ import Tema from '../../../model/Tema';
 import { buscaId, deleteId } from '../../../services/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 function DeletarTema() {
@@ -19,7 +20,16 @@ function DeletarTema() {
 
   useEffect(() => {
       if (token === '') {
-          alert("Erro de conexão, realize o Login novamente")
+        toast.error('Erro de conexão, realize o Login novamente', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
           navigate("/login")
       }
   }, [token])
@@ -44,7 +54,16 @@ function DeletarTema() {
         'Authorization': token
       }
     })
-    alert('Tema apagado com sucesso');
+    toast.success('Tema deletado!!!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: 'colored',
+      progress: undefined,
+    });
     navigate('/temas')
   }
 

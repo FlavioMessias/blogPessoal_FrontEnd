@@ -6,6 +6,7 @@ import TabPostagens from '../postagens/tabpostagem/TabPostagem';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../store/tokens/tokensReducer';
+import { toast } from 'react-toastify';
 
 
 
@@ -18,7 +19,16 @@ function Home(){
 
   useEffect(() => {
     if(token === ''){
-      alert('Erro de conexão, realize o Login novamente');
+      toast.error('Erro de conexão, realize o Login novamente', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: 'colored',
+        progress: undefined,
+      });
       navigate('/login');
     }
   }, [token]);

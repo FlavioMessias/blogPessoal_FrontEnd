@@ -7,6 +7,7 @@ import Tema from '../../../model/Tema';
 import { busca } from '../../../services/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 
@@ -20,7 +21,16 @@ const token = useSelector<TokenState, TokenState['tokens']>(
 
 useEffect(() => {
     if (token === ''){
-        alert('Erro de conexão, realize o Login novamente')
+        toast.error('Erro de conexão, realize o Login novamente', {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: 'colored',
+            progress: undefined,
+          });
         navigate('/login')
     }
 }, [token])

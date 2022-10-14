@@ -7,6 +7,7 @@ import Postagem from '../../../model/Postagem';
 import { buscaId, deleteId } from '../../../services/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function DeletarPost() {
 
@@ -19,7 +20,16 @@ function DeletarPost() {
 
   useEffect(() => {
     if (token == "") {
-        alert("Erro de conexão, realize o Login novamente")
+      toast.error('Erro de conexão, realize o Login novamente', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: 'colored',
+        progress: undefined,
+      });
         navigate("/login")
 
     }
@@ -46,7 +56,16 @@ async function findById(id: string) {
             'Authorization': token
           }
         });
-        alert('Postagem deletada com sucesso');
+        toast.success('Postagem excluida!!!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
       }
     
       function nao() {
