@@ -1,6 +1,4 @@
 import React from 'react';
-import ButtonAppBar from './components/static/navbar/Navbar';
-
 import './App.css';
 import ListaTema from './components/temas/listatema/ListaTema';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
