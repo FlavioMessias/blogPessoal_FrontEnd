@@ -22,7 +22,7 @@ if (token !== "") {
     <Grid alignItems="center" item xs={12}>
         <Box style={{ backgroundColor: "#8e24aa", height: "70px" }}>
             <Box paddingTop={0} display="flex" alignItems="center" justifyContent="center">
-                <Typography variant="h5" align="center" gutterBottom style={{ color: "white" }}>Siga-nos nas redes sociais </Typography>
+                <Typography variant="h5" align="center" gutterBottom style={{ color: "white" }}>Siga-nos nas redes sociais</Typography>
             </Box>
             <Box className="icons" display="flex" justifyContent="center" >
                 <a href="https://github.com/FlavioMessias" target="_blank" rel="noopener noreferrer"  className="icon icon--github">
